@@ -103,7 +103,7 @@ int main() {
     }
 
     else if (input == "pwd"){
-      std::cout<<std::filesystem::current_path()<<std::endl;
+      std::cout<<std::filesystem::current_path().string()<<std::endl;
     }
     
     else {
