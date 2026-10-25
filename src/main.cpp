@@ -3,6 +3,19 @@
 #include <vector>
 #include <sstream>
 #include <unistd.h>
+#include<filesystem>
+
+std::vector<std::string> split(const std::string& str){
+  std::vector<std::string> result;
+  std::istringstream iss(str);
+  std::string token;
+
+  while (std::getline(iss, token, ' ')) {
+    result.push_back(token);
+  }
+
+  return result;
+}
 
 std::string getCommandPath(const std::string command) {
   std:: string pathvar = std::getenv("PATH"); 
@@ -73,6 +86,9 @@ int main() {
 
     std::getline(std::cin, input);
 
+    std::vector<std::string> parts = split(input);
+
+
     if (input == "exit") {
       break;
     }
@@ -84,6 +100,10 @@ int main() {
     
     else if(input.substr(0,5) == "type "){
       typeCommand(input.substr(5));
+    }
+
+    else if (input == "pwd"){
+      std::cout<<std::filesystem::current_path()<<std::endl;
     }
     
     else {
