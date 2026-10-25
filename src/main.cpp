@@ -21,7 +21,23 @@ int main() {
     else if (input.substr(0, 5) == "echo ") {
       std::string message = input.substr(5);
       std::cout << message << std::endl;
-    } else {
+    }
+    
+    else if(input.substr(0,5) == "type "){
+      if(input.substr(5,5) == "echo "){
+        std::cout << "echo is a shell builtin" << std::endl;
+      }
+      else if(input.substr(5,5) == "exit "){
+        std::cout << "exit is a shell builtin" << std::endl;
+      }
+      else if(input.substr(5,5) == "type "){
+        std::cout << "type is a shell builtin" << std::endl;
+      }
+      else{
+        std::cout << input.substr(5) << ": command not found" << std::endl;
+      }
+    }
+    else {
     std::cout << input<< ": command not found" << std::endl;
     }
   }
