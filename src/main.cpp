@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 int main() {
   // Flush after every std::cout / std:cerr
@@ -16,6 +17,12 @@ int main() {
     if (input == "exit") {
       break;
     }
+    // std::vector<std::string> args;
+    else if (input.substr(0, 5) == "echo ") {
+      std::string message = input.substr(5);
+      std::cout << message << std::endl;
+    } else {
     std::cout << input<< ": command not found" << std::endl;
+    }
   }
 }
