@@ -105,6 +105,12 @@ int main() {
     else if (input == "pwd"){
       std::cout<<std::filesystem::current_path().string()<<std::endl;
     }
+
+    else if(parts[0] == "cd"){
+      if(chdir(parts[1].c_str()) != 0){
+        std::cerr << "cd: " << parts[1] << ": No such file or directory" << std::endl;
+      }
+    }
     
     else {
       execute(input);
