@@ -107,6 +107,9 @@ int main() {
     }
 
     else if(parts[0] == "cd"){
+      if(parts[1] == "~"){
+        parts[1] = std::getenv("HOME");
+      }
       if(chdir(parts[1].c_str()) != 0){
         std::cerr << "cd: " << parts[1] << ": No such file or directory" << std::endl;
       }
