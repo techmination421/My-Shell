@@ -15,8 +15,8 @@ std::string getCommandPath(const std::string command) {
     if (access(filePath.c_str(), X_OK) == 0) {
       return filePath; // Command found, return the path
     }
-    return ""; // Command not found, return an empty string
   }
+  return ""; // Command not found, return an empty string
 }
 
 void typeCommand(const std::string& command) {
