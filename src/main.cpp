@@ -33,7 +33,7 @@ std::string getCommandPath(const std::string command) {
 }
 
 void typeCommand(const std::string& command) {
-  if (command == "echo"|| command == "exit" || command == "type") {
+  if (command == "echo"|| command == "exit" || command == "type" || command == "pwd") {
     std::cout << command << " is a shell builtin" << std::endl;
   }
   
