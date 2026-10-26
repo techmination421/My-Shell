@@ -76,7 +76,7 @@ int execute(const std::string& input) {
   }
 
 }
-void redirectOutput(std::vector<std::string>& parts) {
+void redirectOutput(std::vector<std::string>& parts, int fd_value = 1) {
   std::string filename = parts.back();// Get the last part of the command as the filename where the output will be redirected
   parts.pop_back(); // Remove the filename from the parts vector
   parts.pop_back(); // Remove the redirection operator from the parts vector
@@ -88,7 +88,7 @@ void redirectOutput(std::vector<std::string>& parts) {
     return;
   }
 
-  dup2(fd, 1);
+  dup2(fd, fd_value); // Redirect stdout to the file descriptor
   close(fd);
   repl(std::accumulate(parts.begin(), parts.end(), std::string(),
     [](const std::string& a, const std::string& b) {
@@ -148,6 +148,9 @@ int main() {
       if(parts[parts.size() - 2] == ">" || parts[parts.size() - 2] == "1>") {  
         // bool write_into_file = false;
         redirectOutput(parts);
+      }
+      else if(parts[parts.size() - 2] == "2>") {
+        redirectOutput(parts, 2);
       }
       else{
         repl(input, parts);
