@@ -1,5 +1,0 @@
-input.txt
-main.cpp
-main.exe
-output.txt
-shell
