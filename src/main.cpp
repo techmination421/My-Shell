@@ -76,13 +76,14 @@ int execute(const std::string& input) {
   }
 
 }
-void redirectOutput(std::vector<std::string>& parts, int fd_value = 1) {
+void redirectOutput(std::vector<std::string>& parts, int fd_value = 1, int flags = O_WRONLY | O_CREAT | O_TRUNC, mode_t mode = 0644) {
   std::string filename = parts.back();// Get the last part of the command as the filename where the output will be redirected
+
   parts.pop_back(); // Remove the filename from the parts vector
   parts.pop_back(); // Remove the redirection operator from the parts vector
 
   int saved = dup(1); // Save the current stdout file descriptor
-  int fd = open(filename.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0644);
+  int fd = open(filename.c_str(), flags, mode);
   if (fd == -1) {
     std::cerr << "Error opening file: " << filename << std::endl;
     return;
@@ -149,8 +150,14 @@ int main() {
         // bool write_into_file = false;
         redirectOutput(parts);
       }
+      else if(parts[parts.size() - 2] == ">>" || parts[parts.size() - 2] == "1>>") {
+        redirectOutput(parts, 1, O_WRONLY | O_CREAT | O_APPEND);
+      }
       else if(parts[parts.size() - 2] == "2>") {
         redirectOutput(parts, 2);
+      }
+      else if(parts[parts.size() - 2] == "2>>") {
+        redirectOutput(parts, 2, O_WRONLY | O_CREAT | O_APPEND);
       }
       else{
         repl(input, parts);
