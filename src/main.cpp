@@ -144,11 +144,13 @@ int main() {
     std::getline(std::cin, input);
 
     std::vector<std::string> parts = split(input);
-    if(parts.size() >2){
+    if(parts.size() >2 ){
       if(parts[parts.size() - 2] == ">" || parts[parts.size() - 2] == "1>") {  
         // bool write_into_file = false;
         redirectOutput(parts);
-        break;
+      }
+      else{
+        repl(input, parts);
       }
     }
     
